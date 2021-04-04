@@ -97,7 +97,13 @@ class Draw {
     }
 
     onDrawEnd = (e) => {
-        this.vector_layer.getSource().addFeature(e.feature);
+        if(this.vector_layer.getSource().getFeatures().length <= 1) {
+            this.vector_layer.getSource().addFeature(e.feature);        
+        } else {
+            alert("Only two features are allowed to merge. At present, merge functionality only supports merging of two adjacent features.")
+            this.map.removeInteraction(this.interaction);
+        }
+
     }
 }
 
@@ -186,4 +192,3 @@ document.getElementById("btn2").onclick = mergePolygon;
 document.getElementById("btn3").onclick = dragFeature;
 
 document.getElementById("btn4").onclick = clearGraphics;
-
